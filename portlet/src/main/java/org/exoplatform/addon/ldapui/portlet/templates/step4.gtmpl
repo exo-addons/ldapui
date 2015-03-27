@@ -1,0 +1,39 @@
+<form id="formstep4">
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="GroupCtxDNs">Parent DN of groups</span> <input type="text" class="form-control" placeholder="ou=people,dc=example,dc=com" aria-describedby="GroupCtxDNs"
+      name="GroupCtxDNsInput" id="GroupCtxDNsInput" value="ou=groups,ou=portal,ou=exoplatform,dc=org"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="GroupIdAttributeName">Id attribute</span> <input type="text" class="form-control" placeholder="uid" aria-describedby="GroupIdAttributeName"
+      name="GroupIdAttributeNameInput" id="GroupIdAttributeNameInput" value="cn"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="GroupEntrySearchFilter">Search filter</span> <input type="text" class="form-control" placeholder="(&(cn={0})(objectClass=User))"
+      aria-describedby="GroupEntrySearchFilter" name="GroupEntrySearchFilterInput" id="GroupEntrySearchFilterInput" value="(&(cn={0})(objectClass=groupOfNames))"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="GroupParentName">Choose a parent name of LDAP groups (empty if none)</span> <input type="text" class="form-control" placeholder="(&(cn={0})(objectClass=User))"
+      aria-describedby="GroupParentName" name="GroupParentNameInput" id="GroupParentNameInput" value="ldapGroups"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-info" id="testGroupsMapping">Test groups mapping</button>
+    &nbsp; <span class="label label-success" id="formStatusStep4"></span>
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserMemberships">User name</span> <input type="text" class="form-control" placeholder="username" aria-describedby="UserMemberships" name="UserMembershipsInput"
+      id="UserMembershipsInput"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-info" id="testUserMemberships">Test user memberships</button>
+    &nbsp; <span class="label label-success" id="UserMembershipsStatus"></span>
+  </div>
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-info" id="replaceOrgSrv">Use this configuration for current portal</button>
+    &nbsp; <span class="label label-success" id="replaceOrgSrvStatus"></span>
+  </div>
+</form>

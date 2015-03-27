@@ -1,0 +1,20 @@
+#ldapUI .navbar li {
+  list-style-type: none;
+}
+#ldapUI ul {
+  margin: 0;
+}
+#ldapUI .navbar {
+  margin: 0;
+}
+#ldapUI .navbar-nav {
+  padding: 0;
+}
+
+#ldapUI nav {
+  margin-top: 5px;
+}
+
+#ldapUI .tab-content {
+  padding: 10px;
+}

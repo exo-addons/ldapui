@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.exoplaform.org/xml/ns/kernel_1_2.xsd http://www.exoplaform.org/xml/ns/kernel_1_2.xsd"
+	xmlns="http://www.exoplaform.org/xml/ns/kernel_1_2.xsd">
+	<component>
+		<type>org.exoplatform.addon.ldapui.service.api.LdapIntegrationService</type>
+		<init-params>
+			<value-param>
+				<name>enableSocial</name>
+				<value>${ldapui.enableSocial}</value>
+			</value-param>
+			<value-param>
+				<name>enableCalendar</name>
+				<value>${ldapui.enableCalendar}</value>
+			</value-param>
+			<value-param>
+				<name>enableForum</name>
+				<value>${ldapui.enableForum}</value>
+			</value-param>
+		</init-params>
+	</component>
+</configuration>

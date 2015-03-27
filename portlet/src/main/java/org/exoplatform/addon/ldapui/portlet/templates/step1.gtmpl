@@ -1,0 +1,37 @@
+<p>
+  <strong>Step 1: LDAP connection</strong>
+<ul>
+  <li>Configure LDAP connection.</li>
+  <li>Test LDAP connection.</li>
+</ul>
+</p>
+<p>
+  <strong>Step 2: User mapping</strong>
+<ul>
+  <li>Configure User LDAP search query</li>
+  <li>Configure LDAP attributes to map with User attributes</li>
+  <li>Test User mappings</li>
+</ul>
+</p>
+<p>
+  <strong>Step 3: Group mapping</strong>
+<ul>
+  <li>Configure Group LDAP search query</li>
+  <li>Configure LDAP attributes to map with Group attributes</li>
+  <li>Configure Parent Group of mapped groups</li>
+  <li>Test Group mappings</li>
+</ul>
+</p>
+<p>
+  <strong>Step 4: User synchronization</strong>
+<ul>
+  <li>Configure how to proceed on User initialization</li>
+</ul>
+</p>
+<p>
+  <strong>Step 5:</strong>
+<ul>
+  <li>Save configuration</li>
+  <li>Export configuration as eXo extension file</li>
+</ul>
+</p>

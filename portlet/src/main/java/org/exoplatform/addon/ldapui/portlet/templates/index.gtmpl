@@ -1,0 +1,46 @@
+<div id="ldapUI">
+  <div class="uiBox">
+    <h6 class="title">Configure LDAP</h6>
+    <div class="uiContentBox">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#step1" aria-controls="#step1" role="tab" data-toggle="tab">> Introduction</a></li>
+              <li><a href="#step2" aria-controls="#step2" role="tab" data-toggle="tab">> LDAP connection</a></li>
+              <li><a href="#step3" aria-controls="#step3" role="tab" data-toggle="tab">> User mapping</a></li>
+              <li><a href="#step4" aria-controls="#step4" role="tab" data-toggle="tab">> Group mapping</a></li>
+              <li><a href="#step5" aria-controls="#step5" role="tab" data-toggle="tab">> User Profile initialization</a></li>
+              <li><a href="#step6" aria-controls="#step6" role="tab" data-toggle="tab">> Finish</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="step1">
+          #{include path=step1.gtmpl}#{/include}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="step2">
+          #{include path=step2.gtmpl}#{/include}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="step3">
+          #{include path=step3.gtmpl}#{/include}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="step4">
+          #{include path=step4.gtmpl}#{/include}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="step5">
+          #{include path=step5.gtmpl}#{/include}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="step6">
+          #{include path=step6.gtmpl}#{/include}
+        </div>
+      </div>
+      <nav>
+        <ul class="pager">
+          <li class="next"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

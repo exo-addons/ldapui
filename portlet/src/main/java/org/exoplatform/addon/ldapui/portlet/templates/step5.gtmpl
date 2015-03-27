@@ -1,0 +1,31 @@
+<p>
+  <strong>Select modules</strong>
+</p>
+<form id="formstep5">
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="EnableSocial">Social user profile</span> <input type="checkbox" class="form-control" aria-describedby="EnableSocial" name="EnableSocialInput"
+      id="EnableSocialInput"/>
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="EnableCalendar">Calendar user profile</span> <input type="checkbox" class="form-control" aria-describedby="EnableCalendar" name="EnableCalendarInput"
+      id="EnableCalendarInput"/>
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="EnableForum">Forum user profile</span> <input type="checkbox" class="form-control" aria-describedby="EnableForum" name="EnableForumInput" id="EnableForumInput" />
+  </div>
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-info" id="saveEnabledProfiles">Save enabled user profiles</button>
+    &nbsp; <span class="label label-success" id="formStatusStep5"></span>
+  </div>
+  <p>
+    <strong>
+    profiles will be initialized when the user login on portal.
+    Thus, you can initialize all mapped users which will takes around 5 seconds per user.
+    Each user profile will use 3 to 5 MB in database.
+    </strong>
+  </p>
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-info" id="initializeProfiles">Initialize user profiles now</button>
+    &nbsp; <span class="label label-success" id="formStatusStep5"></span>
+  </div>
+</form>

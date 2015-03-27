@@ -1,0 +1,14 @@
+<form id="formstep2">
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="providerURL">URL</span> <input type="text" class="form-control" placeholder="ldap://localhost:1389" aria-describedby="providerURL" name="providerURLInput" id="providerURLInput" value="ldap://localhost:389"/>
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="adminDN">Admin DN</span> <input type="text" class="form-control" placeholder="cn=Directory Manager,dc=example,dc=com" aria-describedby="adminDN" name="adminDNInput" id="adminDNInput" value="cn=Manager,ou=exoplatform,dc=org" />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="adminPassword">Admin Password</span> <input type="password" class="form-control" placeholder="password" aria-describedby="adminPassword" name="adminPasswordInput" id="adminPasswordInput" value="secret"/>
+  </div>
+  <button type="button" class="btn btn-info" id="testLDAPConnection">Test connection</button>
+  &nbsp;
+  <span class="label label-success" id="formStatusStep2"></span>
+</form>

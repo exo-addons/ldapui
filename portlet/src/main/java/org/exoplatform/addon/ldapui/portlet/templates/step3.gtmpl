@@ -1,0 +1,53 @@
+<form id="formstep3">
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserCtxDNs">Parent DN of users</span> <input type="text" class="form-control" placeholder="ou=people,dc=example,dc=com" aria-describedby="UserCtxDNs"
+      name="UserCtxDNsInput" id="UserCtxDNsInput" value="ou=users,ou=portal,ou=exoplatform,dc=org"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserIdAttributeName">Id attribute</span> <input type="text" class="form-control" placeholder="uid" aria-describedby="UserIdAttributeName"
+      name="UserIdAttributeNameInput" id="UserIdAttributeNameInput" value="cn"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserEntrySearchFilter">Search filter</span> <input type="text" class="form-control" placeholder="(&(cn={0})(objectClass=User))"
+      aria-describedby="UserEntrySearchFilter" name="UserEntrySearchFilterInput" id="UserEntrySearchFilterInput" value="(&(cn={0})(objectClass=inetOrgPerson))"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserPasswordAttributeName">Password</span> <input type="text" class="form-control" placeholder="password" aria-describedby="UserPasswordAttributeName"
+      name="UserPasswordAttributeNameInput" id="UserPasswordAttributeNameInput" value="userPassword"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserFirstName">First name</span> <input type="text" class="form-control" placeholder="givenname" aria-describedby="UserFirstName" name="UserFirstNameInput"
+      id="UserFirstNameInput" value="givenName"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserLastName">Last name</span> <input type="text" class="form-control" placeholder="sn" aria-describedby="UserLastName" name="UserLastNameInput"
+      id="UserLastNameInput" value="sn"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="UserEmail">Email</span> <input type="text" class="form-control" placeholder="mail" aria-describedby="UserEmail" name="UserEmailInput" id="UserEmailInput"
+      value="mail"
+    />
+  </div>
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-info" id="testUsersMapping">Test users mapping</button>
+    &nbsp; <span class="label label-success" id="formStatusStep3"></span>
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="TestCredentialsUserName">User name</span> <input type="text" class="form-control" placeholder="username" aria-describedby="TestCredentialsUserName" name="TestCredentialsUserNameInput"
+      id="TestCredentialsUserNameInput"/>
+  </div>
+  <div class="input-group input-group-lg">
+    <span class="input-group-addon" id="TestCredentialsPassword">Password</span> <input type="password" class="form-control" placeholder="password" aria-describedby="TestCredentialsPassword" name="TestCredentialsPasswordInput"
+      id="TestCredentialsPasswordInput"/>
+  </div>
+  <div class="input-group input-group-lg">
+    <button type="button" class="btn btn-info" id="testUsersCredentials">Test user credentials</button>
+    &nbsp; <span class="label label-success" id="testUsersCredentialsStatus"></span>
+  </div>
+</form>
