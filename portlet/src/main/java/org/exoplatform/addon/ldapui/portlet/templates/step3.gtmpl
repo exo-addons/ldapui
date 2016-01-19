@@ -6,12 +6,12 @@
   </div>
   <div class="input-group input-group-lg">
     <span class="input-group-addon" id="UserIdAttributeName">Id attribute</span> <input type="text" class="form-control" placeholder="uid" aria-describedby="UserIdAttributeName"
-      name="UserIdAttributeNameInput" id="UserIdAttributeNameInput" value="cn"
+      name="UserIdAttributeNameInput" id="UserIdAttributeNameInput" value="uid"
     />
   </div>
   <div class="input-group input-group-lg">
-    <span class="input-group-addon" id="UserEntrySearchFilter">Search filter</span> <input type="text" class="form-control" placeholder="(&(cn={0})(objectClass=User))"
-      aria-describedby="UserEntrySearchFilter" name="UserEntrySearchFilterInput" id="UserEntrySearchFilterInput" value="(&(cn={0})(objectClass=inetOrgPerson))"
+    <span class="input-group-addon" id="UserEntrySearchFilter">Search filter</span> <input type="text" class="form-control" placeholder="(&(uid={0})(objectClass=User))"
+      aria-describedby="UserEntrySearchFilter" name="UserEntrySearchFilterInput" id="UserEntrySearchFilterInput" value="(&(uid={0})(objectClass=inetOrgPerson))"
     />
   </div>
   <div class="input-group input-group-lg">

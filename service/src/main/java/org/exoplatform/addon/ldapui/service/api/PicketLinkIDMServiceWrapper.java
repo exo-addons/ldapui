@@ -72,17 +72,19 @@ public class PicketLinkIDMServiceWrapper extends PicketLinkIDMServiceImpl {
   @Override
   public void start() {
     try {
-      String plidmConfigPath = System.getProperty("ldapui.plidm.config.path");
-      if (plidmConfigPath != null && !plidmConfigPath.isEmpty() && plidmConfigPath.startsWith("jcr:/")) {
-        File file = getLocalFile(sessionProviderService, repositoryService, "system", plidmConfigPath);
-        String url = "file:///" + file.getAbsoluteFile();
-        ValueParam param = new ValueParam();
-        param.setName(PARAM_CONFIG_OPTION);
-        param.setValue(url);
-        initParams.addParameter(param);
-      }
+      if (originalPLIDMService == null) {
+        String plidmConfigPath = System.getProperty("ldapui.plidm.config.path");
+        if (plidmConfigPath != null && !plidmConfigPath.isEmpty() && plidmConfigPath.startsWith("jcr:/")) {
+          File file = getLocalFile(sessionProviderService, repositoryService, "system", plidmConfigPath);
+          String url = "file:///" + file.getAbsoluteFile();
+          ValueParam param = new ValueParam();
+          param.setName(PARAM_CONFIG_OPTION);
+          param.setValue(url);
+          initParams.addParameter(param);
+        }
 
-      originalPLIDMService = new PicketLinkIDMServiceImpl(exoContainerContext, initParams, hibernateService, confManager, picketLinkIDMCache, dependency);
+        originalPLIDMService = new PicketLinkIDMServiceImpl(exoContainerContext, initParams, hibernateService, confManager, picketLinkIDMCache, dependency);
+      }
       ((Startable) originalPLIDMService).start();
     } catch (Exception e) {
       throw new IllegalStateException(e);

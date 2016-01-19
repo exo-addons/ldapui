@@ -255,7 +255,6 @@ public class LdapIntegrationService {
    * @throws Exception
    *           JCR or IDM operation failure
    */
-  @SuppressWarnings("unchecked")
   @Managed
   @ManagedDescription("invoke all groups listeners")
   @Impact(ImpactType.READ)
@@ -467,7 +466,6 @@ public class LdapIntegrationService {
     return groupIsSynchronized;
   }
 
-  @SuppressWarnings("unchecked")
   private void invokeUserMembershipsListeners(String username) throws Exception {
     if (LOG.isDebugEnabled()) {
       LOG.debug("\t\tMemberships listeners invocation for user= " + username);

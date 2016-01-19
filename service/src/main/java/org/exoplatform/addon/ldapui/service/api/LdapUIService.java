@@ -5,22 +5,23 @@ import java.util.List;
 
 import javax.inject.Singleton;
 
+import org.exoplatform.commons.utils.ListAccess;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.ExoContainerContext;
 import org.exoplatform.container.PortalContainer;
 import org.exoplatform.container.PropertyConfigurator;
-import org.exoplatform.container.RootContainer;
-import org.exoplatform.container.SessionManagerImpl;
 import org.exoplatform.container.component.ComponentPlugin;
 import org.exoplatform.container.configuration.ConfigurationManager;
 import org.exoplatform.container.configuration.ConfigurationManagerImpl;
 import org.exoplatform.container.util.ContainerUtil;
 import org.exoplatform.container.xml.Component;
 import org.exoplatform.services.organization.OrganizationService;
+import org.exoplatform.services.organization.User;
+import org.exoplatform.services.organization.UserStatus;
+import org.exoplatform.services.organization.idm.PicketLinkIDMCacheService;
 import org.exoplatform.services.organization.idm.PicketLinkIDMOrganizationServiceImpl;
 import org.exoplatform.services.organization.idm.PicketLinkIDMService;
 import org.exoplatform.services.organization.idm.PicketLinkIDMServiceImpl;
-import org.exoplatform.test.MockServletContext;
 
 @Singleton
 public class LdapUIService {
@@ -28,13 +29,8 @@ public class LdapUIService {
   public ExoContainer getContainerWithPLIDMMapping(String mappingFilePath) throws Exception {
     System.setProperty("ldapui.picketlink.configuration.path", mappingFilePath);
 
-    // container = new ExoContainer(new MX4JComponentAdapterFactory(), null);
-    // FIXME We should use ExoContainer, but some components assume that this is
-    // a PortalContainer
-    // see
-    // https://github.com/exoplatform/gatein-portal/blob/stable/3.5.x-PLF/component/identity/src/main/java/org/exoplatform/services/organization/idm/IDMUserListAccess.java#L141
     String containerName = "ldapui" + ((int) (Math.random() * 1000));
-    ExoContainer container = new PortalContainer(RootContainer.getInstance(), new MockServletContext());
+    ExoContainer container = new ExoContainer();
 
     System.setProperty("ldapui.container.name", containerName);
 
@@ -42,20 +38,15 @@ public class LdapUIService {
     configurationManager.addConfiguration(this.getClass().getResource("inherited-components-configuration.xml"));
     configurationManager.addConfiguration(this.getClass().getResource("common-configuration.xml"));
     container.registerComponentInstance(ConfigurationManager.class, configurationManager);
-    container.registerComponentImplementation(SessionManagerImpl.class);
     new PropertyConfigurator(configurationManager);
 
     ContainerUtil.addComponents(container, configurationManager);
     container.start();
 
+    PicketLinkIDMCacheService idmCacheService = (PicketLinkIDMCacheService) container.getComponentInstanceOfType(PicketLinkIDMCacheService.class);
+    idmCacheService.invalidateAll();
+
     ExoContainerContext.setCurrentContainer(container);
-
-    // FIXME Workaround, some IDM components uses PortalContainer.getInstance()
-    // instead of ExoContainerContext.getCurrentContainer()
-    // see
-    // https://github.com/exoplatform/gatein-portal/blob/stable/3.5.x-PLF/component/identity/src/main/java/org/exoplatform/services/organization/idm/IDMUserListAccess.java#L141
-    PortalContainer.setInstance((PortalContainer) container);
-
     return container;
   }
 
@@ -68,13 +59,14 @@ public class LdapUIService {
     System.setProperty("ldapui.picketlink.configuration.path", "jar:/org/exoplatform/addon/ldapui/service/api/picketlink-idm-step4.xml");
 
     configurationManager.addConfiguration(this.getClass().getResource("common-configuration.xml"));
+    configurationManager.addConfiguration("war:/conf/platform/organization-integration-configuration.xml");
 
     Collection<?> components = configurationManager.getComponents();
     for (Object object : components) {
       Component component = (Component) object;
       Object service = container.createComponent(Class.forName(component.getType()), component.getInitParams());
       if (service instanceof OrganizationService) {
-        organizationServiceWrapper.setOriginalOragSrv((PicketLinkIDMOrganizationServiceImpl) service);
+        organizationServiceWrapper.setOriginalOrgSrv((PicketLinkIDMOrganizationServiceImpl) service);
         List<org.exoplatform.container.xml.ComponentPlugin> plugins = component.getComponentPlugins();
         if (plugins != null) {
           for (org.exoplatform.container.xml.ComponentPlugin plugin : plugins) {
@@ -90,6 +82,20 @@ public class LdapUIService {
         idmServiceWrapper.setOriginalPLIDMService((PicketLinkIDMServiceImpl) service);
         idmServiceWrapper.start();
       }
+    }
+
+    PicketLinkIDMCacheService idmCacheService = (PicketLinkIDMCacheService) container.getComponentInstanceOfType(PicketLinkIDMCacheService.class);
+    idmCacheService.invalidateAll();
+  }
+
+  public void synchronizeProfiles() throws Exception {
+    OrganizationService organizationService = (OrganizationService) PortalContainer.getInstance().getComponentInstanceOfType(OrganizationService.class);
+    ListAccess<User> usersListAccess = organizationService.getUserHandler().findAllUsers(UserStatus.ANY);
+    int size = usersListAccess.getSize();
+    int index = 0;
+    while (index < size) {
+      User[] users = usersListAccess.load(index++, 1);
+      organizationService.getUserHandler().saveUser(users[0], true);
     }
   }
 

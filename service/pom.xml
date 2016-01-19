@@ -19,6 +19,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.exoplatform.kernel</groupId>
+			<artifactId>exo.kernel.container</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.gatein.portal</groupId>
 			<artifactId>exo.portal.component.identity</artifactId>
 			<scope>provided</scope>

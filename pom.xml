@@ -24,7 +24,7 @@
     <tag>HEAD</tag>
   </scm>
   <properties>
-    <org.exoplatform.platform.version>4.1.0</org.exoplatform.platform.version>
+    <org.exoplatform.platform.version>4.3.0</org.exoplatform.platform.version>
   </properties>
   <dependencyManagement>
     <dependencies>

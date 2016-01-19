@@ -8,6 +8,10 @@
 				<user-mapping>USER</user-mapping>
 			</identity-type-mappings>
 			<options>
+		        <option>
+		          <name>template</name>
+		          <value>true</value>
+		        </option>
 				<option>
 					<name>cache.providerRegistryName</name>
 					<value>apiCacheProvider</value>
@@ -46,18 +50,11 @@
 				</option>
 			</options>
 		</repository>
-		<repository>
-			<id>DefaultPortalRepository</id>
-			<class>org.picketlink.idm.impl.repository.WrapperIdentityStoreRepository</class>
-			<external-config />
-			<default-identity-store-id>HibernateStore</default-identity-store-id>
-			<default-attribute-store-id>HibernateStore</default-attribute-store-id>
-		</repository>
 	</repositories>
 	<stores>
 		<attribute-stores />
 		<identity-stores>
-			<identity-store>
+		<identity-store>
 				<id>HibernateStore</id>
 				<class>org.picketlink.idm.impl.store.hibernate.HibernateIdentityStoreImpl</class>
 				<external-config />

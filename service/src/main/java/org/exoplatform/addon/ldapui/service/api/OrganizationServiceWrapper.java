@@ -60,7 +60,7 @@ public class OrganizationServiceWrapper extends PicketLinkIDMOrganizationService
     originalOragSrv.addListenerPlugin(listener);
   }
 
-  public void setOriginalOragSrv(PicketLinkIDMOrganizationServiceImpl originalOragSrv) throws Exception {
+  public void setOriginalOrgSrv(PicketLinkIDMOrganizationServiceImpl originalOragSrv) throws Exception {
     if (originalOragSrv != this.originalOragSrv) {
       for (ComponentPlugin componentPlugin : listeners) {
         originalOragSrv.addListenerPlugin(componentPlugin);

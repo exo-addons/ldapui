@@ -1,22 +1,4 @@
-<p>
-  <strong>Select modules</strong>
-</p>
 <form id="formstep5">
-  <div class="input-group input-group-lg">
-    <span class="input-group-addon" id="EnableSocial">Social user profile</span> <input type="checkbox" class="form-control" aria-describedby="EnableSocial" name="EnableSocialInput"
-      id="EnableSocialInput"/>
-  </div>
-  <div class="input-group input-group-lg">
-    <span class="input-group-addon" id="EnableCalendar">Calendar user profile</span> <input type="checkbox" class="form-control" aria-describedby="EnableCalendar" name="EnableCalendarInput"
-      id="EnableCalendarInput"/>
-  </div>
-  <div class="input-group input-group-lg">
-    <span class="input-group-addon" id="EnableForum">Forum user profile</span> <input type="checkbox" class="form-control" aria-describedby="EnableForum" name="EnableForumInput" id="EnableForumInput" />
-  </div>
-  <div class="input-group input-group-lg">
-    <button type="button" class="btn btn-info" id="saveEnabledProfiles">Save enabled user profiles</button>
-    &nbsp; <span class="label label-success" id="formStatusStep5"></span>
-  </div>
   <p>
     <strong>
     profiles will be initialized when the user login on portal.

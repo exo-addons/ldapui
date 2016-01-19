@@ -71,7 +71,7 @@ public class LdapUIController {
   boolean enableForum;
 
   @View
-  public Response.Render index() {
+  public Response.Content index() {
     System.setProperty("ldap.groups.groupParentName", "/*");
     System.setProperty("ldap.groups.groupNameToInit", "platform");
     return index.ok(parameters);
@@ -79,7 +79,7 @@ public class LdapUIController {
 
   @Ajax
   @Resource
-  public Response.Content<?> testUserMapping(String ctxDNs, String idAttributeName, String passwordAttributeName, String entrySearchFilter, String firstName, String lastName, String email) {
+  public Response.Content testUserMapping(String ctxDNs, String idAttributeName, String passwordAttributeName, String entrySearchFilter, String firstName, String lastName, String email) {
     PortalContainer portalContainer = PortalContainer.getInstance();
     ExoContainer container = null;
     try {
@@ -97,7 +97,7 @@ public class LdapUIController {
       ListAccess<User> usersListAccess = organizationService.getUserHandler().findAllUsers();
       return Response.ok("'" + usersListAccess.getSize() + "' users found.");
     } catch (Exception e) {
-      LOG.error("LDAP Connection error", e);
+      LOG.error(e);
       return Response.ok("LDAP Connection error: " + (e == null ? e : e.getMessage()));
     } finally {
       if (container != null) {
@@ -110,38 +110,32 @@ public class LdapUIController {
 
   @Ajax
   @Resource
-  public Response.Content<?> replaceOrgSrv() throws Exception {
+  public Response.Content replaceOrgSrv() {
     try {
+      System.setProperty("ldapui.container.name", PortalContainer.getCurrentPortalContainerName());
       ldapUIService.replaceOrgService();
       return Response.ok("Sucess");
     } catch (Exception e) {
+      LOG.error(e);
       return Response.ok("Failed");
     }
   }
 
   @Ajax
   @Resource
-  public Response.Content<?> saveEnabledProfiles(String enableSocial, String enableCalendar, String enableForum) {
-    this.enableCalendar = (enableCalendar != null && enableCalendar.trim().equalsIgnoreCase("true")) ? true : false;
-    this.enableForum = (enableForum != null && enableForum.trim().equalsIgnoreCase("true")) ? true : false;
-    this.enableSocial = (enableSocial != null && enableSocial.trim().equalsIgnoreCase("true")) ? true : false;
-
-    System.setProperty("ldapui.enableCalendar", "" + this.enableCalendar);
-    System.setProperty("ldapui.enableForum", "" + this.enableForum);
-    System.setProperty("ldapui.enableSocial", "" + this.enableSocial);
-
-    return Response.ok("Sucess");
+  public Response.Content synchronizeProfiles() {
+    try {
+      ldapUIService.synchronizeProfiles();
+      return Response.ok("Sucess");
+    } catch (Exception e) {
+      LOG.error(e);
+      return Response.ok("Failed");
+    }
   }
 
   @Ajax
   @Resource
-  public Response.Content<?> synchronizeProfiles() {
-    return Response.ok("Sucess");
-  }
-
-  @Ajax
-  @Resource
-  public Response.Content<?> testUserCredentials(String username, String password) {
+  public Response.Content testUserCredentials(String username, String password) {
     PortalContainer portalContainer = PortalContainer.getInstance();
     ExoContainer container = null;
     try {
@@ -150,20 +144,20 @@ public class LdapUIController {
 
       return Response.ok(organizationService.getUserHandler().authenticate(username, password) ? "Sucess" : "Failed");
     } catch (Exception e) {
-      LOG.error("LDAP Connection error", e);
+      LOG.error(e);
       return Response.ok("LDAP Connection error: " + (e == null ? e : e.getMessage()));
     } finally {
+      PortalContainer.setInstance(portalContainer);
+      ExoContainerContext.setCurrentContainer(portalContainer);
       if (container != null) {
         container.stop();
       }
-      PortalContainer.setInstance(portalContainer);
-      ExoContainerContext.setCurrentContainer(portalContainer);
     }
   }
 
   @Ajax
   @Resource
-  public Response.Content<?> testGroupMapping(String ctxDNs, String idAttributeName, String entrySearchFilter, String groupParentName) {
+  public Response.Content testGroupMapping(String ctxDNs, String idAttributeName, String entrySearchFilter, String groupParentName) {
     PortalContainer portalContainer = PortalContainer.getInstance();
     ExoContainer container = null;
     try {
@@ -187,32 +181,31 @@ public class LdapUIController {
       container = ldapUIService.getContainerWithPLIDMMapping("picketlink-idm-step4.xml");
       OrganizationService organizationService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
 
-      @SuppressWarnings("unchecked")
       Collection<Group> groups = organizationService.getGroupHandler().getAllGroups();
 
-      return Response.ok("'" + groups.size() + "' groups found.");
+      ListAccess<User> usersListAccess = organizationService.getUserHandler().findAllUsers();
+      return Response.ok("'" + groups.size() + "' groups found. " + "'" + usersListAccess.getSize() + "' users found.");
     } catch (Exception e) {
-      LOG.error("LDAP Connection error", e);
+      LOG.error(e);
       return Response.ok("LDAP Connection error: " + (e == null ? e : e.getMessage()));
     } finally {
+      PortalContainer.setInstance(portalContainer);
+      ExoContainerContext.setCurrentContainer(portalContainer);
       if (container != null) {
         container.stop();
       }
-      PortalContainer.setInstance(portalContainer);
-      ExoContainerContext.setCurrentContainer(portalContainer);
     }
   }
 
   @Ajax
   @Resource
-  public Response.Content<?> testUserMemberships(String username) {
+  public Response.Content testUserMemberships(String username) {
     PortalContainer portalContainer = PortalContainer.getInstance();
     ExoContainer container = null;
     try {
       container = ldapUIService.getContainerWithPLIDMMapping("picketlink-idm-step4.xml");
       OrganizationService organizationService = (OrganizationService) container.getComponentInstanceOfType(OrganizationService.class);
 
-      @SuppressWarnings("unchecked")
       Collection<Membership> memberships = organizationService.getMembershipHandler().findMembershipsByUser(username);
       for (Membership membership : memberships) {
         System.out.println(membership.getId());
@@ -220,20 +213,20 @@ public class LdapUIController {
 
       return Response.ok("'" + memberships.size() + "' memberships for user: '" + username + "'");
     } catch (Exception e) {
-      LOG.error("LDAP Connection error", e);
+      LOG.error(e);
       return Response.ok("LDAP Connection error: " + (e == null ? e : e.getMessage()));
     } finally {
+      PortalContainer.setInstance(portalContainer);
+      ExoContainerContext.setCurrentContainer(portalContainer);
       if (container != null) {
         container.stop();
       }
-      PortalContainer.setInstance(portalContainer);
-      ExoContainerContext.setCurrentContainer(portalContainer);
     }
   }
 
   @Ajax
   @Resource
-  public Response.Content<?> testConnection(String providerURL, String adminDN, String adminPassword) {
+  public Response.Content testConnection(String providerURL, String adminDN, String adminPassword) {
     try {
       Hashtable<String, String> envs = new Hashtable<String, String>();
       envs.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
@@ -249,7 +242,7 @@ public class LdapUIController {
       System.setProperty("ldap.adminPassword", adminPassword);
       return Response.ok("Connected successfully!");
     } catch (Exception e) {
-      LOG.error("LDAP Connection error", e);
+      LOG.error(e);
       return Response.ok("LDAP Connection error: " + (e == null ? e : e.getMessage()));
     }
   }

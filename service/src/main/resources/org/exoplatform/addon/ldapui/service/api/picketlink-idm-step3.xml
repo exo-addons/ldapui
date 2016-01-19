@@ -8,6 +8,10 @@
 				<user-mapping>USER</user-mapping>
 			</identity-type-mappings>
 			<options>
+		        <option>
+		          <name>template</name>
+		          <value>true</value>
+		        </option>
 				<option>
 					<name>cache.providerRegistryName</name>
 					<value>apiCacheProvider</value>

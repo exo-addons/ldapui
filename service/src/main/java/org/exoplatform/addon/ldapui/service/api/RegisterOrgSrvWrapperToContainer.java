@@ -3,14 +3,11 @@ package org.exoplatform.addon.ldapui.service.api;
 import org.exoplatform.container.BaseContainerLifecyclePlugin;
 import org.exoplatform.container.ExoContainer;
 import org.exoplatform.container.configuration.ConfigurationManager;
-import org.exoplatform.container.jmx.MX4JComponentAdapter;
-import org.exoplatform.container.management.ManageableComponentAdapter;
 import org.exoplatform.container.xml.Component;
 import org.exoplatform.services.log.ExoLogger;
 import org.exoplatform.services.log.Log;
 import org.exoplatform.services.organization.OrganizationService;
 import org.exoplatform.services.organization.idm.PicketLinkIDMService;
-import org.picocontainer.ComponentAdapter;
 
 /**
  * @author <a href="mailto:boubaker@exoplatform.com">Boubaker Khanfir</a>
@@ -34,7 +31,6 @@ public class RegisterOrgSrvWrapperToContainer extends BaseContainerLifecyclePlug
     component.setType(newType.getName());
 
     container.unregisterComponent(key);
-    ComponentAdapter componentAdapter = new ManageableComponentAdapter(container, new MX4JComponentAdapter(key, newType));
-    container.registerComponent(componentAdapter);
+    container.registerComponentImplementation(key, newType);
   }
 }
